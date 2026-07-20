@@ -78,7 +78,7 @@
     const [manufacturerResult, setResult, findingResult] = await Promise.all([
       client.from('manufacturers').select('id,name,slug').order('name'),
       client.from('sets').select('id,manufacturer_id,slug,set_number,name,status,eol_status,eol_date,eol_precision,eol_confirmed,eol_note,manufacturers(name)').order('updated_at', { ascending: false }),
-      client.from('watchdog_findings').select('id,field_name,old_value,proposed_value,evidence_url,confidence,detected_at,status,sets(set_number,name),sources(name)').eq('status', 'open').order('detected_at', { ascending: false })
+      client.from('watchdog_findings').select('id,external_key,field_name,old_value,proposed_value,evidence_url,confidence,detected_at,status,sets(set_number,name),sources(name)').eq('status', 'open').order('detected_at', { ascending: false })
     ]);
     const error = manufacturerResult.error || setResult.error || findingResult.error;
     if (error) throw error;
@@ -119,7 +119,7 @@
 
   function renderWatchdog(findings) {
     const target = document.querySelector('#watchdogList');
-    target.innerHTML = findings.length ? findings.map(item => `<article class="data-row"><div><h3>${escapeHtml(item.sets?.set_number || item.external_key || 'Unbekanntes Set')} – ${escapeHtml(item.field_name)}</h3><p>${escapeHtml(item.sources?.name || 'Quelle')} · erkannt ${escapeHtml(formatDate(item.detected_at))} · Vertrauen ${item.confidence == null ? '–' : Math.round(item.confidence * 100) + '%'}</p><p>Alt: ${escapeHtml(JSON.stringify(item.old_value))}<br>Vorschlag: ${escapeHtml(JSON.stringify(item.proposed_value))}</p></div><div class="row-actions"><button class="button primary" data-finding="${item.id}" data-status="accepted">Übernehmen</button><button class="button" data-finding="${item.id}" data-status="deferred">Später</button><button class="button" data-finding="${item.id}" data-status="rejected">Verwerfen</button></div></article>`).join('') : '<div class="empty-state">Keine offenen Watchdog-Meldungen.</div>';
+    target.innerHTML = findings.length ? findings.map(item => `<article class="data-row"><div><h3>${escapeHtml(item.sets?.set_number || item.external_key || 'Unbekanntes Set')} – ${escapeHtml(item.field_name)}</h3><p>${escapeHtml(item.sources?.name || 'Quelle')} · erkannt ${escapeHtml(formatDate(item.detected_at))} · Vertrauen ${item.confidence == null ? '–' : Math.round(item.confidence * 100) + '%'}</p><p>Alt: ${escapeHtml(JSON.stringify(item.old_value))}<br>Vorschlag: ${escapeHtml(JSON.stringify(item.proposed_value))}</p></div><div class="row-actions"><button class="button primary" data-finding="${item.id}" data-status="accepted">Akzeptieren</button><button class="button" data-finding="${item.id}" data-status="deferred">Später</button><button class="button" data-finding="${item.id}" data-status="rejected">Verwerfen</button></div></article>`).join('') : '<div class="empty-state">Keine offenen Watchdog-Meldungen.</div>';
     target.querySelectorAll('[data-finding]').forEach(button => button.addEventListener('click', () => reviewFinding(button.dataset.finding, button.dataset.status)));
   }
 
