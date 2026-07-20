@@ -1,8 +1,8 @@
 {
   "name": "bloxxstar-tools",
-  "version": "6.8.1",
+  "version": "7.0.0",
   "private": true,
-  "description": "Tools, calculators and resources for LEGO and compatible brick enthusiasts.",
+  "description": "Multilingual tools, calculators and resources for LEGO and compatible brick enthusiasts.",
   "scripts": {
     "check": "node scripts/check-project.mjs",
     "serve": "npx --yes serve ."
