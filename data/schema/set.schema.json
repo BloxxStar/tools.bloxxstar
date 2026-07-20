@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tools.bloxxstar.de/data/schema/set.schema.json",
+  "title": "BloxxStar Set",
+  "type": "object",
+  "required": ["id", "manufacturer", "setNumber", "name", "status", "eol"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+    "manufacturer": {"type": "string"},
+    "setNumber": {"type": "string"},
+    "name": {"type": "string"},
+    "edition": {"type": ["string", "null"]},
+    "category": {"type": ["string", "null"]},
+    "tags": {"type": "array", "items": {"type": "string"}},
+    "ean": {"type": ["string", "null"]},
+    "releaseDate": {"type": ["string", "null"], "format": "date"},
+    "status": {"enum": ["announced", "available", "retiring-soon", "eol", "unknown"]},
+    "eol": {
+      "type": "object",
+      "required": ["state", "date", "precision", "sourceType", "verifiedAt"],
+      "properties": {
+        "state": {"enum": ["not-announced", "expected", "confirmed", "ended", "unknown"]},
+        "date": {"type": ["string", "null"], "format": "date"},
+        "precision": {"enum": ["day", "month", "quarter", "year", "unknown"]},
+        "sourceType": {"enum": ["manufacturer", "retailer", "official-feed", "editorial", "community", "unknown"]},
+        "sourceUrl": {"type": ["string", "null"], "format": "uri"},
+        "verifiedAt": {"type": ["string", "null"], "format": "date-time"},
+        "notes": {"type": ["string", "null"]}
+      }
+    },
+    "specifications": {"type": "object"},
+    "media": {"type": "object"},
+    "sources": {"type": "array", "items": {"type": "object"}}
+  }
+}
