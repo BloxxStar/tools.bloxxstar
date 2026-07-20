@@ -1,20 +1,31 @@
 (()=>{
+  const script=document.createElement('script');
+  const current=document.currentScript?.src||'';
+  script.src=new URL('i18n.js',current||location.href).href;
+  script.defer=true;
+  document.head.append(script);
+})();
+
+(()=>{
   const root=document.documentElement;
   const themeButtons=[...document.querySelectorAll('[data-theme-toggle]')];
   const saved=localStorage.getItem('bloxxstar-theme');
   const preferred=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+  const t=value=>window.BloxxI18n?.t(value)||value;
   const applyTheme=theme=>{
     root.dataset.theme=theme;
     themeButtons.forEach(btn=>{
       const dark=theme==='dark';
-      btn.setAttribute('aria-label',dark?'Helles Farbschema aktivieren':'Dunkles Farbschema aktivieren');
-      btn.setAttribute('title',dark?'Helles Farbschema aktivieren':'Dunkles Farbschema aktivieren');
+      const label=t(dark?'Helles Farbschema aktivieren':'Dunkles Farbschema aktivieren');
+      btn.setAttribute('aria-label',label);
+      btn.setAttribute('title',label);
       const icon=btn.querySelector('.theme-icon'); if(icon) icon.textContent=dark?'☀':'☾';
     });
     document.querySelectorAll('meta[name="theme-color"]').forEach(m=>m.content=theme==='dark'?'#0d1218':'#ffffff');
   };
   applyTheme(saved||preferred);
   themeButtons.forEach(btn=>btn.addEventListener('click',()=>{const next=root.dataset.theme==='dark'?'light':'dark';localStorage.setItem('bloxxstar-theme',next);applyTheme(next)}));
+  window.addEventListener('bloxxstar:languagechange',()=>applyTheme(root.dataset.theme||'light'));
 
   const b=document.querySelector('.menu-btn'),d=document.querySelector('.drawer'),c=document.querySelector('.drawer-close'),s=document.querySelector('.scrim');
   if(!b||!d)return;
@@ -35,8 +46,8 @@
 
   document.querySelectorAll('[data-copy]').forEach(button=>button.addEventListener('click',async()=>{
     const original=button.textContent;
-    try{await navigator.clipboard.writeText(button.dataset.copy||'');button.textContent='Kopiert ✓'}
-    catch{button.textContent='Code markieren';const strong=button.parentElement?.querySelector('strong');if(strong){const range=document.createRange();range.selectNodeContents(strong);const sel=getSelection();sel?.removeAllRanges();sel?.addRange(range)}}
+    try{await navigator.clipboard.writeText(button.dataset.copy||'');button.textContent=window.BloxxI18n?.t('Kopiert ✓')||'Kopiert ✓'}
+    catch{button.textContent=window.BloxxI18n?.t('Code markieren')||'Code markieren';const strong=button.parentElement?.querySelector('strong');if(strong){const range=document.createRange();range.selectNodeContents(strong);const sel=getSelection();sel?.removeAllRanges();sel?.addRange(range)}}
     setTimeout(()=>button.textContent=original,1800);
   }));
 
@@ -47,11 +58,13 @@
   const empty=document.querySelector('#no-partners');
   let active='all';
   const update=()=>{
-    const term=(search?.value||'').trim().toLocaleLowerCase('de');let visible=0;
-    cards.forEach(card=>{const haystack=`${card.dataset.name||''} ${card.dataset.tags||''} ${card.textContent||''}`.toLocaleLowerCase('de');const category=active==='all'||(card.dataset.tags||'').split(' ').includes(active);const show=category&&(!term||haystack.includes(term));card.hidden=!show;if(show)visible++});
+    const locale=window.BloxxI18n?.language||'de';
+    const term=(search?.value||'').trim().toLocaleLowerCase(locale);let visible=0;
+    cards.forEach(card=>{const haystack=`${card.dataset.name||''} ${card.dataset.tags||''} ${card.textContent||''}`.toLocaleLowerCase(locale);const category=active==='all'||(card.dataset.tags||'').split(' ').includes(active);const show=category&&(!term||haystack.includes(term));card.hidden=!show;if(show)visible++});
     if(count)count.textContent=String(visible);if(empty)empty.hidden=visible!==0;
   };
   search?.addEventListener('input',update);
+  window.addEventListener('bloxxstar:languagechange',update);
   filters.forEach(button=>button.addEventListener('click',()=>{active=button.dataset.filter||'all';filters.forEach(item=>{const selected=item===button;item.classList.toggle('active',selected);item.setAttribute('aria-pressed',String(selected))});update()}));
 
   const dialog=document.querySelector('#support-dialog');

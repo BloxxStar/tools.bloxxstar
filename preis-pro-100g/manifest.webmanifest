@@ -1,11 +1,11 @@
 {
-  "name": "BloxxStar Preis pro 100 g",
-  "short_name": "Preis 100g",
+  "name": "BloxxStar Price per 100 g Calculator",
+  "short_name": "BloxxStar 100 g",
+  "description": "Price per 100 g calculator with German, English and Polish interface.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f8fafc",
   "theme_color": "#0f172a",
-  "lang": "de",
   "icons": [
     {
       "src": "icon.svg",
