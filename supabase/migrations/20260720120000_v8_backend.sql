@@ -105,8 +105,15 @@ create table public.watchdog_findings (
 );
 
 create index sets_search_idx on public.sets using gin (
-  to_tsvector('simple', coalesce(set_number,'') || ' ' || coalesce(name,'') || ' ' || coalesce(category,'') || ' ' || coalesce(theme,'') || ' ' || array_to_string(tags,' '))
+  to_tsvector(
+    'simple'::regconfig,
+    coalesce(set_number, '') || ' ' ||
+    coalesce(name, '') || ' ' ||
+    coalesce(category, '') || ' ' ||
+    coalesce(theme, '')
+  )
 );
+create index sets_tags_idx on public.sets using gin (tags);
 create index sets_eol_idx on public.sets (eol_status, eol_date);
 create index sets_status_idx on public.sets (status, manufacturer_id);
 create index watchdog_open_idx on public.watchdog_findings (status, detected_at desc);
