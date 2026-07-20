@@ -38,6 +38,8 @@ Der Browser greift niemals direkt auf die Datenbank zu. Sämtliche Schreib- und 
 │   ├── auth/
 │   ├── manufacturers/
 │   ├── sets/
+│   ├── taxonomy/
+│   ├── knowledge/
 │   ├── media/
 │   ├── shops/
 │   ├── search/
@@ -62,7 +64,8 @@ Der Browser greift niemals direkt auf die Datenbank zu. Sämtliche Schreib- und 
 https://bloxxstar.de/
 https://bloxxstar.de/sets/
 https://bloxxstar.de/hersteller/
-https://bloxxstar.de/geschichte/
+https://bloxxstar.de/themen/
+https://bloxxstar.de/wissen/
 https://bloxxstar.de/videos/
 https://bloxxstar.de/shops/
 https://bloxxstar.de/suche/
@@ -74,20 +77,41 @@ https://tools.bloxxstar.de/
 
 ## 5. Datenbankmodule
 
-### Kernmodule
+### Benutzer und Rechte
 
 - `users`
 - `roles`
 - `user_roles`
+
+### Produktdaten
+
 - `manufacturers`
 - `sets`
+- `product_lines`
+- `set_product_lines`
 - `categories`
-- `themes`
+- `set_categories`
 - `tags`
 - `set_tags`
+- `attributes`
+- `attribute_options`
+- `set_attribute_values`
+
+### Allgemeine Wissensdatenbank
+
+- `knowledge_entities`
+- `knowledge_entity_types`
+- `knowledge_relations`
+- `set_knowledge_entities`
+
+Die Wissensdatenbank bleibt bewusst themenneutral. Objekte können beispielsweise Fahrzeuge, Flugzeuge, Schiffe, Gebäude, Personen, Unternehmen, Organisationen, Orte, Ereignisse, Technologien oder fiktionale Gegenstände sein. Neue Typen werden im CMS angelegt und nicht fest im Code programmiert.
+
+### Medien und Inhalte
+
 - `media`
 - `videos`
 - `sources`
+- `source_links`
 
 ### Handels- und Affiliate-Module
 
@@ -97,17 +121,6 @@ https://tools.bloxxstar.de/
 - `set_shop_links`
 - `price_entries`
 
-### Historische Wissensmodule
-
-- `vehicles`
-- `aircraft`
-- `ships`
-- `people`
-- `operations`
-- `wars`
-- `units`
-- Relationstabellen zwischen Sets und historischen Einträgen
-
 ### Systemmodule
 
 - `audit_log`
@@ -115,7 +128,50 @@ https://tools.bloxxstar.de/
 - `watchdog_jobs`
 - `watchdog_results`
 
-## 6. Rollen und Rechte
+## 6. Taxonomie und Subthemen
+
+Hersteller, Produktlinien, Kategorien, Themen, Editionen und Tags werden nicht fest im Quellcode hinterlegt.
+
+Beispiel:
+
+```text
+COBI
+└── Historical Collection
+    └── WW2
+```
+
+Ein Set kann gleichzeitig mehreren Klassifizierungen zugeordnet werden:
+
+```text
+Hersteller:    COBI
+Produktlinie: Historical Collection
+Subthema:     WW2
+Kategorie:    Flugzeug
+Edition:      Executive Edition
+Nation:       Großbritannien
+Maßstab:      1:32
+```
+
+Produktlinien und Kategorien unterstützen hierarchische Eltern-Kind-Beziehungen. Zusätzlich können Sets mehreren Kategorien, Tags und Wissensobjekten gleichzeitig zugeordnet werden.
+
+## 7. Leitprinzip für veränderliche Daten
+
+> Alles, was sich fachlich ändern oder erweitern kann, wird in der Datenbank gepflegt und nicht fest im Code hinterlegt.
+
+Das gilt insbesondere für:
+
+- Hersteller
+- Produktlinien und Subthemen
+- Kategorien
+- Tags
+- Editionen
+- Wissensobjekttypen
+- Shops
+- Rabattcodes
+- Quellen
+- Rollen und Berechtigungen
+
+## 8. Rollen und Rechte
 
 Geplante Rollen:
 
@@ -126,7 +182,7 @@ Geplante Rollen:
 
 Die Berechtigungen werden ausschließlich serverseitig geprüft.
 
-## 7. Authentifizierung
+## 9. Authentifizierung
 
 - PHP-Session-basierter Login
 - Passwörter ausschließlich mit `password_hash()` speichern
@@ -135,7 +191,7 @@ Die Berechtigungen werden ausschließlich serverseitig geprüft.
 - Rate-Limiting für Login und sensible API-Endpunkte
 - optional später Zwei-Faktor-Authentifizierung
 
-## 8. API-Grundsätze
+## 10. API-Grundsätze
 
 - JSON-basierte REST-API
 - versionierte Endpunkte unter `/api/v1/`
@@ -158,9 +214,14 @@ POST   /api/v1/sets
 GET    /api/v1/sets/{id}
 PUT    /api/v1/sets/{id}
 DELETE /api/v1/sets/{id}
+
+GET    /api/v1/product-lines
+GET    /api/v1/categories
+GET    /api/v1/tags
+GET    /api/v1/knowledge-entities
 ```
 
-## 9. Medien und Uploads
+## 11. Medien und Uploads
 
 - Uploads werden außerhalb des direkt ausführbaren PHP-Bereichs gespeichert.
 - Dateityp, MIME-Type und Dateigröße werden serverseitig geprüft.
@@ -168,7 +229,7 @@ DELETE /api/v1/sets/{id}
 - Bilder werden bei Bedarf automatisch verkleinert.
 - Metadaten werden in der Tabelle `media` gespeichert.
 
-## 10. Sicherheitsanforderungen
+## 12. Sicherheitsanforderungen
 
 - PDO mit Prepared Statements
 - Ausgabe-Escaping gegen XSS
@@ -180,7 +241,7 @@ DELETE /api/v1/sets/{id}
 - `.env` niemals in GitHub einchecken
 - regelmäßige Datenbank-Backups
 
-## 11. Migration von Supabase
+## 13. Migration von Supabase
 
 Supabase bleibt während der Entwicklung vorerst bestehen.
 
@@ -194,7 +255,7 @@ Geplanter Ablauf:
 6. Funktionstests durchführen.
 7. Supabase erst nach erfolgreicher Abnahme entfernen.
 
-## 12. Entwicklungsstrategie
+## 14. Entwicklungsstrategie
 
 - `main`: aktuell veröffentlichte stabile Version
 - `develop`: Integrationsbranch, sofern weiterhin verwendet
@@ -208,17 +269,18 @@ https://beta.bloxxstar.de/
 
 Erst nach vollständiger Prüfung wird auf `bloxxstar.de` umgeschaltet.
 
-## 13. Erste Umsetzungsschritte
+## 15. Erste Umsetzungsschritte
 
 1. Joomla100-Systemdaten erfassen: PHP-Version, Datenbanktyp, Document Root und Deployment-Möglichkeiten.
 2. `.env.example` und sichere Konfigurationsstruktur erstellen.
-3. erstes MySQL-/MariaDB-Schema für Benutzer, Rollen, Hersteller und Sets anlegen.
+3. flexibles MySQL-/MariaDB-Schema für Benutzer, Hersteller, Sets, Taxonomie und Wissensobjekte anlegen.
 4. PHP-Basis und Datenbankverbindung mit PDO erstellen.
 5. Login und Session-Sicherheit implementieren.
 6. Herstellerverwaltung bauen.
-7. Setverwaltung bauen.
-8. öffentliche Set-Datenbank anbinden.
+7. Taxonomie-Verwaltung für Produktlinien, Subthemen, Kategorien und Tags bauen.
+8. Setverwaltung bauen.
+9. öffentliche Set-Datenbank anbinden.
 
-## 14. Leitprinzip
+## 16. Leitprinzip
 
 BloxxStar V9 wird modular, dokumentiert und migrationsfähig gebaut. Öffentliche Website, CMS, API und Tools bleiben technisch getrennt, verwenden jedoch dieselbe zentrale Datenbasis.
