@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff">
+<meta name="description" content="BloxxStar Maßstabsrechner: Maßstab eines Klemmbaustein-Modells aus Modell- und Originalmaßen berechnen.">
+<title>Maßstabsrechner | BloxxStar Tools</title><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg"><link rel="stylesheet" href="style.css">
+
+<link rel="canonical" href="https://tools.bloxxstar.de/massstabsrechner/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="de_DE"/>
+<meta property="og:site_name" content="BloxxStar Tools"/>
+<meta property="og:title" content="BloxxStar Maßstabsrechner"/>
+<meta property="og:description" content="Bestimme den Maßstab eines Klemmbaustein-Modells aus Modell- und Originalmaßen."/>
+<meta property="og:url" content="https://tools.bloxxstar.de/massstabsrechner/"/>
+<meta property="og:image" content="https://tools.bloxxstar.de/assets/share/bloxxstar-tools-share.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="BloxxStar Maßstabsrechner"/>
+<meta name="twitter:description" content="Bestimme den Maßstab eines Klemmbaustein-Modells aus Modell- und Originalmaßen."/>
+<meta name="twitter:image" content="https://tools.bloxxstar.de/assets/share/bloxxstar-tools-share.jpg"/>
+</head><body>
+<a class="skip-link" href="#main">Direkt zum Inhalt</a>
+<header class="topbar"><div class="topbar-inner">
+<a class="brand" href="../" aria-label="BloxxStar Tools – Startseite"><img class="brand-logo" src="../bloxxstar-logo.webp" alt=""><span class="brand-text">BloxxStar Tools</span></a>
+<nav class="desktop-nav" aria-label="Hauptnavigation"><a href="../">Start</a><a href="../steinepreis/">Steinepreis</a><a href="../preis-pro-100g/">Preis pro 100 g</a><a href="../massstabsrechner/" aria-current="page">Maßstab</a><a href="../bezugsquellen.html">Bezugsquellen &amp; Rabattcodes</a><a href="../impressum.html">Impressum</a></nav>
+<div class="header-actions"><button class="icon-btn" type="button" data-theme-toggle aria-label="Dunkles Farbschema aktivieren"><span class="theme-icon" aria-hidden="true">☾</span></button><button class="menu-btn" type="button" aria-label="Menü öffnen" aria-controls="mobile-menu" aria-expanded="false">☰</button></div>
+</div></header>
+<nav class="drawer" id="mobile-menu" aria-label="Mobile Navigation" aria-hidden="true"><div class="drawer-head"><span class="drawer-title">Menü</span><button class="drawer-close" type="button" aria-label="Menü schließen">×</button></div><a href="../">Startseite</a><a href="../steinepreis/">Steinepreis-Rechner</a><a href="../preis-pro-100g/">Preis pro 100 g</a><a href="../massstabsrechner/" aria-current="page">Maßstabsrechner</a><a href="../bezugsquellen.html">Bezugsquellen &amp; Rabattcodes</a><a href="../impressum.html">Impressum</a></nav><div class="scrim" aria-hidden="true"></div>
+<main class="wrap" id="main">
+<header class="page-head"><p class="eyebrow">Rechner 03</p><h1 class="page-title">Maßstabsrechner</h1><p class="lead">Vergleiche die Maße eines Klemmbaustein-Sets mit seinem realen Vorbild oder berechne aus einem bekannten Maßstab die Originalgröße.</p></header>
+<div class="category-picker" role="group" aria-label="Objektart"><button class="category-button active" data-category="Fahrzeug">🚗 Fahrzeug</button><button class="category-button" data-category="Flugzeug">✈️ Flugzeug</button><button class="category-button" data-category="Schiff">🚢 Schiff</button><button class="category-button" data-category="Gebäude">🏛️ Gebäude</button><button class="category-button" data-category="Sonstiges">📦 Sonstiges</button></div>
+<div class="mode-tabs" role="tablist"><button class="mode-tab active" role="tab" aria-selected="true" data-mode="scale">Maßstab berechnen</button><button class="mode-tab" role="tab" aria-selected="false" data-mode="original">Originalgröße berechnen</button></div>
+<section class="mode-panel" id="scale-panel">
+<div class="scale-layout"><div class="scale-card"><h2>Maße eingeben</h2><h3>Modell / Klemmbaustein-Set</h3><div class="dimension-grid" id="model-inputs"></div><h3>Reales Original</h3><div class="dimension-grid" id="real-inputs"></div><div class="action-row"><button class="action-button primary" id="calculate-scale">Maßstab berechnen</button><button class="action-button" id="reset-scale">Zurücksetzen</button></div><div class="scale-note"><strong>Hinweis:</strong> Mindestens ein zusammengehöriges Maßpaar ist erforderlich. Länge, Breite und Höhe dürfen einzeln leer bleiben.</div></div>
+<aside class="scale-card scale-result" aria-live="polite"><h2>Ergebnis</h2><div id="scale-empty" class="scale-empty">Noch keine Berechnung durchgeführt.</div><div id="scale-output" hidden><div class="result-kicker">Durchschnittlicher Maßstab</div><div class="scale-number" id="average-scale">1:–</div><div class="quality-pill" id="quality"></div><div class="dimension-results" id="dimension-results"></div><div class="standard-title">Nächster üblicher Maßstab</div><div class="standard-list" id="standard-list"></div><div class="scale-bars"><div class="bar-label"><span>Original</span><span>100 %</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-label"><span>Modell</span><span id="model-percent">–</span></div><div class="bar-track"><div class="bar-fill" id="model-bar"></div></div></div><button class="action-button copy-button" id="copy-scale">Ergebnis kopieren</button></div></aside></div></section>
+<section class="mode-panel" id="original-panel" hidden>
+<div class="scale-layout"><div class="scale-card"><h2>Originalgröße ermitteln</h2><div class="known-scale-wrap"><label class="label" for="known-scale">Bekannter Maßstab</label><div class="known-scale-label"><input class="scale-input" id="known-scale" type="number" min="1" step="0.1" inputmode="decimal" placeholder="z. B. 32"><div class="known-scale-suffix">1 : x</div></div></div><h3>Modellmaße</h3><div class="dimension-grid" id="reverse-inputs"></div><div class="action-row"><button class="action-button primary" id="calculate-original">Originalgröße berechnen</button><button class="action-button" id="reset-original">Zurücksetzen</button></div></div>
+<aside class="scale-card scale-result" aria-live="polite"><h2>Berechnete Originalmaße</h2><div id="original-empty" class="scale-empty">Maßstab und mindestens ein Modellmaß eingeben.</div><div id="original-output" hidden><div class="result-kicker">Verwendeter Maßstab</div><div class="scale-number" id="reverse-scale">1:–</div><div class="dimension-results" id="original-results"></div><button class="action-button copy-button" id="copy-original">Ergebnis kopieren</button></div></aside></div></section>
+<div class="info-row"><span aria-hidden="true">ℹ</span><span><strong>Wichtig:</strong> Klemmbaustein-Modelle sind häufig nicht in allen Dimensionen exakt gleich skaliert. Der Rechner zeigt deshalb Länge, Breite und Höhe getrennt an.</span></div><a class="back-link" href="../">← Zur Übersicht</a>
+</main>
+<footer class="site-footer"><span>© BloxxStar</span><nav class="footer-links" aria-label="Fußnavigation"><a href="../">Alle Werkzeuge</a><a href="../bezugsquellen.html">Bezugsquellen &amp; Rabattcodes</a><a href="../impressum.html">Impressum</a></nav></footer>
+<button id="installBtn" class="install" type="button">App installieren</button><script src="app.js"></script><script src="../menu.js"></script></body></html>
