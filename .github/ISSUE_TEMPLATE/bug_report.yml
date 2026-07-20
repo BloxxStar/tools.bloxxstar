@@ -1,0 +1,25 @@
+name: Fehler melden
+description: Einen reproduzierbaren Fehler in den BloxxStar Tools melden.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Fehlerbeschreibung
+      description: Was ist passiert und was wurde erwartet?
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Betroffene Seite oder App
+      placeholder: z. B. Maßstabsrechner
+  - type: textarea
+    id: steps
+    attributes:
+      label: Schritte zum Nachstellen
+  - type: input
+    id: browser
+    attributes:
+      label: Browser und Gerät
