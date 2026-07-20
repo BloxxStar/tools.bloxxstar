@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="description" content="BloxxStar Set-Datenbank mit Suche, Setstatus und verifizierten EOL-Informationen."/>
+<meta name="robots" content="index,follow,max-image-preview:large"/>
+<title>Set-Datenbank & EOL-Listen – BloxxStar Tools</title>
+<link rel="canonical" href="https://tools.bloxxstar.de/sets/"/>
+<link rel="stylesheet" href="../style.css"/>
+<link rel="stylesheet" href="sets.css"/>
+<link rel="icon" href="../icon.svg"/>
+</head>
+<body>
+<a class="skip-link" href="#main">Direkt zum Inhalt</a>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../"><img class="brand-logo" src="../bloxxstar-logo.webp" alt=""/><span class="brand-text">BloxxStar Tools</span></a><nav class="desktop-nav" aria-label="Hauptnavigation"><a href="../">Start</a><a aria-current="page" href="./">Set-Datenbank</a><a href="../#werkzeuge">Werkzeuge</a><a href="../bezugsquellen.html">Bezugsquellen</a></nav><div class="header-actions"><button class="icon-btn" data-theme-toggle type="button" aria-label="Dunkles Farbschema aktivieren"><span class="theme-icon" aria-hidden="true">☾</span></button><button class="menu-btn" type="button" aria-label="Menü öffnen" aria-controls="mobile-menu" aria-expanded="false">☰</button></div></div></header>
+<nav id="mobile-menu" class="drawer" aria-label="Mobile Navigation" aria-hidden="true"><div class="drawer-head"><span class="drawer-title">Menü</span><button class="drawer-close" type="button" aria-label="Menü schließen">×</button></div><a href="../">Startseite</a><a aria-current="page" href="./">Set-Datenbank</a><a href="../#werkzeuge">Werkzeuge</a><a href="../bezugsquellen.html">Bezugsquellen</a></nav><div class="scrim" aria-hidden="true"></div>
+<main class="wrap" id="main">
+<section class="database-hero"><p class="eyebrow">BloxxStar V8.0</p><h1 class="page-title">Set-Datenbank und EOL-Listen</h1><p class="lead">Suche nach Hersteller, Setnummer, Name, Kategorie oder Thema. EOL-Daten werden mit Status, Genauigkeit und Quellenstand geführt.</p><label class="search-box" for="set-search"><span aria-hidden="true">⌕</span><input id="set-search" type="search" placeholder="Zum Beispiel: COBI 5769, Swordfish oder 1:32" autocomplete="off"/><button id="clear-search" type="button">Löschen</button></label></section>
+<section class="database-layout section-block" aria-label="Set-Datenbank">
+<aside class="filter-card"><h2>Filter</h2><label for="manufacturer-filter">Hersteller</label><select id="manufacturer-filter"><option value="">Alle Hersteller</option></select><label for="eol-filter">EOL-Status</label><select id="eol-filter"><option value="">Alle Status</option><option value="expected">EOL erwartet</option><option value="confirmed">EOL bestätigt</option><option value="ended">Bereits EOL</option><option value="not-announced">Kein EOL angekündigt</option><option value="unknown">Noch unbekannt</option></select><button class="button" id="reset-filters" type="button">Filter zurücksetzen</button></aside>
+<div>
+<div class="result-heading"><div><p class="eyebrow">Ergebnisse</p><h2 id="result-title">Alle Sets</h2></div><strong id="result-count" aria-live="polite">0 Sets</strong></div>
+<div id="set-results" class="set-grid" aria-live="polite"></div>
+<p id="empty-state" class="empty-state" hidden>Keine passenden Sets gefunden.</p>
+</div>
+</section>
+<section class="section-block"><div class="section-heading"><p class="eyebrow">EOL-Übersichten</p><h2>Automatisch aus den Setdaten erzeugt</h2><p>Die Listen unterscheiden erwartete, bestätigte und bereits beendete Sets. Unbestätigte Angaben werden sichtbar als solche gekennzeichnet.</p></div><div class="eol-columns"><article class="eol-panel"><h3>Demnächst EOL</h3><div id="eol-upcoming"></div></article><article class="eol-panel"><h3>Bereits EOL</h3><div id="eol-ended"></div></article><article class="eol-panel"><h3>EOL noch unbekannt</h3><div id="eol-unknown"></div></article></div></section>
+</main>
+<footer class="site-footer"><span>© BloxxStar</span><nav class="footer-links"><a href="../">Startseite</a><a href="../impressum.html">Impressum</a></nav></footer>
+<script src="../menu.js"></script>
+<script src="sets.js"></script>
+</body>
+</html>
