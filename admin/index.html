@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>BloxxStar Admin</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <main class="admin-shell">
+    <header class="admin-header">
+      <div>
+        <p class="eyebrow">BloxxStar V8.0</p>
+        <h1>Redaktionssystem</h1>
+      </div>
+      <button id="logoutButton" class="button" hidden>Abmelden</button>
+    </header>
+
+    <section id="setupNotice" class="admin-card notice" hidden>
+      <h2>Supabase noch nicht konfiguriert</h2>
+      <p>Kopiere <code>config.example.js</code> nach <code>config.js</code> und trage Projekt-URL sowie Publishable Key ein.</p>
+    </section>
+
+    <section id="loginPanel" class="admin-card login-card">
+      <h2>Anmelden</h2>
+      <form id="loginForm" class="admin-form">
+        <label>E-Mail<input id="email" type="email" autocomplete="username" required /></label>
+        <label>Passwort<input id="password" type="password" autocomplete="current-password" required /></label>
+        <button class="button primary" type="submit">Anmelden</button>
+        <p id="loginMessage" class="form-message" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section id="dashboard" hidden>
+      <nav class="admin-tabs" aria-label="Backend-Bereiche">
+        <button class="active" data-tab="overview">Übersicht</button>
+        <button data-tab="sets">Sets</button>
+        <button data-tab="eol">EOL-Zentrale</button>
+        <button data-tab="watchdog">Watchdog</button>
+      </nav>
+
+      <div id="overview" class="tab-panel">
+        <div class="metric-grid">
+          <article class="admin-card"><small>Sets gesamt</small><strong id="setCount">–</strong></article>
+          <article class="admin-card"><small>Offene Watchdog-Funde</small><strong id="findingCount">–</strong></article>
+          <article class="admin-card"><small>EOL in 90 Tagen</small><strong id="eolCount">–</strong></article>
+        </div>
+      </div>
+
+      <div id="sets" class="tab-panel" hidden>
+        <div class="panel-head"><div><h2>Sets</h2><p>Datensätze anlegen und redaktionell pflegen.</p></div><button id="newSetButton" class="button primary">Neues Set</button></div>
+        <div id="setList" class="data-list"></div>
+      </div>
+
+      <div id="eol" class="tab-panel" hidden>
+        <div class="panel-head"><div><h2>EOL-Zentrale</h2><p>Bevorstehende, bestätigte und ungeklärte End-of-Life-Angaben.</p></div></div>
+        <div id="eolList" class="data-list"></div>
+      </div>
+
+      <div id="watchdog" class="tab-panel" hidden>
+        <div class="panel-head"><div><h2>Watchdog</h2><p>Externe Änderungen werden erst nach deiner Freigabe übernommen.</p></div></div>
+        <div id="watchdogList" class="data-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="setDialog">
+    <form id="setForm" method="dialog" class="admin-form dialog-form">
+      <div class="dialog-head"><h2 id="dialogTitle">Set anlegen</h2><button type="button" id="closeDialog" class="icon-btn" aria-label="Schließen">×</button></div>
+      <input id="setId" type="hidden" />
+      <label>Hersteller<select id="manufacturerId" required></select></label>
+      <label>Setnummer<input id="setNumber" required /></label>
+      <label>Name<input id="setName" required /></label>
+      <label>Slug<input id="setSlug" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" required /></label>
+      <label>Status<select id="contentStatus"><option value="draft">Entwurf</option><option value="review">Prüfung</option><option value="published">Veröffentlicht</option><option value="archived">Archiviert</option></select></label>
+      <label>EOL-Status<select id="eolStatus"><option value="active">Im Sortiment</option><option value="announced">EOL angekündigt</option><option value="expected">Vermutlich EOL</option><option value="eol">EOL</option><option value="unknown">Unbekannt</option></select></label>
+      <label>EOL-Datum<input id="eolDate" type="date" /></label>
+      <label>EOL-Genauigkeit<select id="eolPrecision"><option value="unknown">Unbekannt</option><option value="day">Tag</option><option value="month">Monat</option><option value="quarter">Quartal</option><option value="year">Jahr</option></select></label>
+      <label class="checkbox"><input id="eolConfirmed" type="checkbox" /> Offiziell bestätigt</label>
+      <label>Redaktionelle EOL-Notiz<textarea id="eolNote" rows="4"></textarea></label>
+      <div class="dialog-actions"><button type="button" id="cancelDialog" class="button">Abbrechen</button><button type="submit" class="button primary">Speichern</button></div>
+      <p id="setMessage" class="form-message" aria-live="polite"></p>
+    </form>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
