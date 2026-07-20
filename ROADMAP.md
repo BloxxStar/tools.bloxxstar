@@ -8,13 +8,13 @@
 - [x] Entwicklungs- und Veröffentlichungsablauf dokumentieren
 
 ## V7.0 – Internationalisierung und gemeinsame Architektur
-- [ ] Deutsch, Englisch und Polnisch
-- [ ] Automatische Erkennung der Browsersprache
-- [ ] Manueller Sprachumschalter mit gespeicherter Auswahl
-- [ ] Zentrale Übersetzungsdateien
-- [ ] Gemeinsamer Header, Footer und Navigation
-- [ ] Mehrsprachige Meta- und Social-Vorschaudaten
-- [ ] PWA-Manifeste und Offline-Caches aktualisieren
+- [x] Deutsch, Englisch und Polnisch
+- [x] Automatische Erkennung der Browsersprache
+- [x] Manueller Sprachumschalter mit gespeicherter Auswahl
+- [x] Zentrale Übersetzungsdateien
+- [x] Gemeinsame Header-, Footer- und Navigationslogik
+- [x] Mehrsprachige Meta- und Social-Vorschaudaten
+- [x] PWA-Manifeste und Offline-Caches aktualisieren
 
 ## V7.1 – Rechner und Creator-Werkzeuge
 - [ ] Maßstabsrechner V2
