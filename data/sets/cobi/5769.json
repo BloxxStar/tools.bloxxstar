@@ -1,0 +1,40 @@
+{
+  "id": "cobi-5769",
+  "manufacturer": "COBI",
+  "setNumber": "5769",
+  "name": "Fairey Swordfish Mk. II",
+  "edition": "Executive Edition",
+  "category": "Flugzeuge",
+  "tags": ["Zweiter Weltkrieg", "Fleet Air Arm", "Royal Navy", "1:32"],
+  "ean": null,
+  "releaseDate": null,
+  "status": "unknown",
+  "eol": {
+    "state": "unknown",
+    "date": null,
+    "precision": "unknown",
+    "sourceType": "unknown",
+    "sourceUrl": null,
+    "verifiedAt": null,
+    "notes": "Ein EOL-Hinweis wird erst nach Quellenprüfung veröffentlicht."
+  },
+  "specifications": {
+    "parts": 539,
+    "figures": 1,
+    "scale": "1:32",
+    "dimensionsMm": {"length": null, "width": null, "height": null},
+    "weightG": null,
+    "msrp": null,
+    "currency": "EUR"
+  },
+  "media": {
+    "image": null,
+    "youtube": null
+  },
+  "bloxxstar": {
+    "review": null,
+    "buildTimeMinutes": null,
+    "historyTopics": ["Fairey Swordfish", "Fleet Air Arm", "Unternehmen Rheinübung"]
+  },
+  "sources": []
+}
