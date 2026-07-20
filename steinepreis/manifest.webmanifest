@@ -1,11 +1,11 @@
 {
-  "name": "BloxxStar Steinepreis-Rechner",
-  "short_name": "Steinepreis",
+  "name": "BloxxStar Price per Piece Calculator",
+  "short_name": "BloxxStar Price",
+  "description": "Price per piece calculator with German, English and Polish interface.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f8fafc",
   "theme_color": "#0f172a",
-  "lang": "de",
   "icons": [
     {
       "src": "icon.svg",
