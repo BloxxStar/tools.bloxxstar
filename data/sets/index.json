@@ -1,0 +1,26 @@
+{
+  "version": "8.0.0-alpha.1",
+  "generatedAt": "2026-07-20T00:00:00Z",
+  "sets": [
+    {
+      "id": "cobi-5769",
+      "manufacturer": "COBI",
+      "setNumber": "5769",
+      "name": "Fairey Swordfish Mk. II",
+      "edition": "Executive Edition",
+      "category": "Flugzeuge",
+      "tags": ["Zweiter Weltkrieg", "Fleet Air Arm", "Royal Navy", "1:32"],
+      "status": "unknown",
+      "eol": {
+        "state": "unknown",
+        "date": null,
+        "precision": "unknown",
+        "sourceType": "unknown",
+        "sourceUrl": null,
+        "verifiedAt": null,
+        "notes": "EOL-Datum noch nicht verifiziert."
+      },
+      "detailPath": "data/sets/cobi/5769.json"
+    }
+  ]
+}
